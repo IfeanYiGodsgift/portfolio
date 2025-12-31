@@ -40,8 +40,8 @@ window.onload = function() {
     
     // Step 1: Boot text
     printLine("Initialising kernel...");
-    setTimeout(() => printLine("Loading user profile: IfeanYiGodsgift..."), 600);
-    setTimeout(() => printLine("Mounting file systems..."), 1200);
+    setTimeout(() => printLine("Loading user profile: IfeanYiGodsgift..."), 1200);
+    setTimeout(() => printLine("Mounting file systems..."), 1800);
     
     // Step 2: The Wipe & Banner Load
     setTimeout(() => {
