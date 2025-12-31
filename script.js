@@ -4,7 +4,11 @@ const input = document.getElementById('cmd-input');
 const typeDisplay = document.getElementById('type-display');
 const inputLine = document.querySelector('.input-line');
 
-// --- DATA STORAGE (The Content) ---
+// --- TERMINAL HISTORY STORAGE ---
+let commandHistory = []; // Stores the commands
+let historyIndex = -1;   // Tracks your position in the history
+
+// --- DATA STORAGE ---
 const bannerText = `
 IfeanYiGodsgift (IG) Not A Corporation. All rights reserved.
 
@@ -52,9 +56,8 @@ window.onload = function() {
 
 function bootTerminal() {
     input.disabled = true;
-    inputLine.style.display = 'none'; // Hide prompt during boot
+    inputLine.style.display = 'none'; 
 
-    // Simple timeouts for the boot effect
     printToScreen("Initialising kernel...");
     
     setTimeout(function() {
@@ -66,13 +69,11 @@ function bootTerminal() {
     }, 1500);
 
     setTimeout(function() {
-        // Clear screen and show banner
         output.innerHTML = "";
         printBanner();
         printToScreen("Welcome to my interactive web terminal.");
         printToScreen("For a list of available commands, type <span class='cmd glow'>'help'</span>.");
         
-        // Enable user input
         inputLine.style.display = 'flex';
         input.disabled = false;
         input.focus();
@@ -81,31 +82,62 @@ function bootTerminal() {
 
 // --- MAIN LOGIC ---
 
-// 1. Listen for Enter Key
+// 1. Listen for Keystrokes (Enter, ArrowUp, ArrowDown)
 input.addEventListener("keydown", function(e) {
+    
+    // CASE 1: ENTER KEY (Execute Command)
     if (e.key === "Enter") {
-        // Get value and clean it up
         let command = input.value.toLowerCase().trim();
         
-        // Print the user's command to the history
+        // Save to History (if not empty)
+        if (command !== "") {
+            commandHistory.push(command);
+            historyIndex = commandHistory.length; // Reset index to the end
+        }
+
         printToScreen(`<span class="prompt">guest@God'sGift-pc:~$</span> ${command}`);
-        
-        // Process the command
         processCommand(command);
 
-        // Reset Input
         input.value = "";
         typeDisplay.textContent = "";
         window.scrollTo(0, document.body.scrollHeight);
     }
+    
+    // CASE 2: ARROW UP (Go Back in History)
+    else if (e.key === "ArrowUp") {
+        if (historyIndex > 0) {
+            historyIndex--; // Move index back
+            input.value = commandHistory[historyIndex];
+            typeDisplay.textContent = input.value; // Update visual mirror
+            
+            // Move cursor to end of line (optional specific browser fix)
+            setTimeout(() => input.setSelectionRange(input.value.length, input.value.length), 0);
+        }
+        e.preventDefault(); // Stop default cursor behavior
+    }
+    
+    // CASE 3: ARROW DOWN (Go Forward in History)
+    else if (e.key === "ArrowDown") {
+        if (historyIndex < commandHistory.length - 1) {
+            historyIndex++; // Move index forward
+            input.value = commandHistory[historyIndex];
+            typeDisplay.textContent = input.value;
+        } else {
+            // We are at the bottom, clear the input
+            historyIndex = commandHistory.length;
+            input.value = "";
+            typeDisplay.textContent = "";
+        }
+        e.preventDefault();
+    }
 });
 
-// 2. Mirror Typing (Visual Effect)
+// 2. Mirror Typing (Sync Hidden Input to Visible Span)
 input.addEventListener("input", function() {
     typeDisplay.textContent = input.value;
 });
 
-// 3. Keep Focus (So user can always type)
+// 3. Keep Focus
 document.addEventListener('click', function() {
     input.focus();
 });
@@ -113,42 +145,31 @@ document.addEventListener('click', function() {
 // --- FUNCTIONS ---
 
 function processCommand(cmd) {
-    // SWITCH STATEMENT: Clean and easy to read
     switch (cmd) {
         case 'help':
             generateHelpMenu();
             break;
-
         case 'about':
             printToScreen(data.about);
             break;
-
         case 'contact':
             printToScreen(data.contact);
             break;
-
         case 'projects':
             printToScreen(data.projects);
             break;
-
         case 'open 1':
             printToScreen(data.project_1);
             break;
-
         case 'banner':
             printBanner();
             break;
-
         case 'clear':
             output.innerHTML = "";
             break;
-
         case '':
-            // Do nothing if empty
             break;
-
         default:
-            // Conditional check for errors
             printToScreen(`Command not found: ${cmd}. Type <span class="glow">'help'</span>.`);
             break;
     }
@@ -156,14 +177,10 @@ function processCommand(cmd) {
 
 function generateHelpMenu() {
     let menuHTML = "";
-    
-    // FOR LOOP: Iterates through the helpOptions array
-    // This demonstrates to the lecturer that you understand loops.
     for (let i = 0; i < helpOptions.length; i++) {
         let item = helpOptions[i];
         menuHTML += `<span class="glow">${item.cmd}</span> <span class="subtle">- ${item.desc}</span><br><br>`;
     }
-    
     printToScreen(menuHTML);
 }
 
