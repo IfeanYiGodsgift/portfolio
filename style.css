@@ -73,6 +73,6 @@ input {
 /* Add this to the bottom of style.css */
 .input-line {
     display: none;       /* Hidden by default for boot immersion */
-    margin-top: 40px;    /* Adds the empty space you wanted above the prompt */
+    margin-top: 20px;    /* Adds the empty space you wanted above the prompt */
     align-items: center; /* Keeps prompt and input aligned */
 }

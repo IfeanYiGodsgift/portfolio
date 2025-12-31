@@ -77,7 +77,7 @@ input.addEventListener("keydown", function(e) {
         input.value = ""; 
         
         // Print the command the user typed
-        printLine(`<span class="prompt">guest@ifeanyi-pc:~$</span> ${cmd}`);
+        printLine(`<span class="prompt">guest@God'sGift:~$</span> ${cmd}`);
         
         if (commands[cmd]) {
             printLine(commands[cmd]);
