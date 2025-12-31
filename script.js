@@ -35,12 +35,12 @@ const commands = {
     
     contact: "Email: your-email@example.com<br>GitHub: github.com/IfeanYiGodsgift",
     
-    projects: "Loading projects... <br><br> 1. Honda Accord OBD-II Reader <br> 2. Wellness App API <br> <br> Type <span class='glow'>'open 1'</span> to read the Honda Project documentation.",
+    projects: "Loading projects... <br><br> 1. Honda Accord OBD-II Reader <br> 2. Wellness App API <br> <br> Type <span>'open 1'</span> to read the Honda Project documentation.",
     
     // 3. The Project Details (Inline, no new page)
     "open 1": `
     <br>
-    <span class="glow">HONDA_OBD_TOOL(1)</span>   User Manual<br>
+    <span>HONDA_OBD_TOOL(1)</span>   User Manual<br>
     ----------------------------------------<br>
     <span class="subtle">DESCRIPTION:</span><br>
     A Python utility to read ECU data via OBD-II protocol. My 2006 Honda Accord was suffering from intermittent low oil pressure warnings, so I built this to read raw sensor data in real-time.<br><br>
