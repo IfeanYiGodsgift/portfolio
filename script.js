@@ -31,8 +31,12 @@ const commands = {
 
 // 2. The Boot Sequence Logic
 window.onload = function() {
-    // Disable input during boot
+    // Select the container that holds the prompt and input
+    const inputLine = document.querySelector('.input-line');
+    
+    // Ensure it's hidden and disabled at start
     input.disabled = true;
+    inputLine.style.display = 'none';
     
     // Step 1: Boot text
     printLine("Initialising kernel...");
@@ -44,7 +48,7 @@ window.onload = function() {
         // Clear screen
         output.innerHTML = "";
         
-        // Print ASCII Banner (using <pre> tag to keep format)
+        // Print ASCII Banner
         const pre = document.createElement("div");
         pre.className = "ascii-art";
         pre.innerText = banner;
@@ -53,10 +57,11 @@ window.onload = function() {
         // Print Welcome Text
         printLine(welcomeText);
         
-        // Enable input
-        input.disabled = false;
-        input.focus();
-    }, 2200); // Happens 2.2 seconds after load
+        // Step 3: Reveal the Input Line and Focus
+        inputLine.style.display = 'flex'; // Make it visible now
+        input.disabled = false;           // Unlock typing
+        input.focus();                    // Auto-select the cursor
+    }, 2200);
 };
 
 function printLine(text) {
@@ -72,7 +77,7 @@ input.addEventListener("keydown", function(e) {
         input.value = ""; 
         
         // Print the command the user typed
-        printLine(`<span class="prompt">\nguest@ifeanyi-pc:~$</span> ${cmd}`);
+        printLine(`<span class="prompt">guest@ifeanyi-pc:~$</span> ${cmd}`);
         
         if (commands[cmd]) {
             printLine(commands[cmd]);
