@@ -19,7 +19,7 @@ IfeanYiGodsgift (IG) Not A Corporation. All rights reserved.
 
 const welcomeText = `
 Welcome to my interactive web terminal.
-For a list of available commands, type <span class="cmd">'help\n'</span>.
+For a list of available commands, type <span class="cmd">'help'</span>.
 `;
 
 const commands = {
@@ -72,7 +72,7 @@ input.addEventListener("keydown", function(e) {
         input.value = ""; 
         
         // Print the command the user typed
-        printLine(`<span class="prompt">guest@ifeanyi-pc:~$</span> ${cmd}`);
+        printLine(`<span class="prompt">\nguest@ifeanyi-pc:~$</span> ${cmd}`);
         
         if (commands[cmd]) {
             printLine(commands[cmd]);
