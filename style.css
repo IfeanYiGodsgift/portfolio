@@ -5,41 +5,66 @@ body {
     font-family: 'Fira Code', 'Courier New', monospace;
     margin: 0;
     padding: 20px;
-    font-size: 14px; /* Slightly smaller to fit more text */
+    font-size: 14px;
     line-height: 1.4;
-    overflow-x: hidden; /* Prevent horizontal scroll bars */
+    overflow-x: hidden;
 }
 
 .terminal {
     max-width: 900px;
     margin: 0 auto;
+    min-height: 80vh; /* Ensures the whole screen is clickable */
 }
 
 /* The ASCII Art Container */
 .ascii-art {
-    white-space: pre; /* Keeps the spacing exactly as you type it */
-    font-size: 10px; /* Smaller font to fit complex art */
+    white-space: pre;
+    font-size: 10px;
     line-height: 10px;
     color: #00ff00;
     margin-bottom: 20px;
     font-weight: bold;
 }
 
+/* 1. Prompt is now White */
 .prompt {
-    color: #bd93f9; /* Purple */
+    color: #ffffff; 
     margin-right: 10px;
 }
 
+/* 2. The Text you type is Green */
+#type-display {
+    color: #00ff00;
+}
+
+/* 3. The Blinking Block Cursor */
+.cursor {
+    color: #00ff00;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* 4. The Hidden Input (Invisible but functional) */
+#cmd-input {
+    opacity: 0;
+    position: absolute; /* Takes it out of the flow so it doesn't break layout */
+    width: 0;
+    height: 0;
+}
+
+/* Links */
 a { color: #fff; text-decoration: underline; cursor: pointer; }
 
-input {
-    background: transparent;
-    border: none;
-    color: #fff;
-    font-family: inherit;
-    font-size: inherit;
-    outline: none;
-    width: 50%;
+/* Input Line Layout */
+.input-line {
+    display: none;       /* Hidden during boot */
+    margin-top: 20px;    
+    align-items: center; 
+    display: flex;       /* Ensures prompt and text sit side-by-side */
 }
 
 /* Mobile Controls */
@@ -59,20 +84,8 @@ input {
     font-family: inherit;
 }
 
-/* Responsive Handling */
 @media (max-width: 768px) {
-    /* Hide the big ASCII art on phones so it doesn't break */
     .ascii-art { display: none; }
-    
-    /* Show mobile buttons */
     .mobile-controls { display: block; }
-    
     body { padding: 10px; }
-}
-
-/* Add this to the bottom of style.css */
-.input-line {
-    display: none;       /* Hidden by default for boot immersion */
-    margin-top: 20px;    /* Adds the empty space you wanted above the prompt */
-    align-items: center; /* Keeps prompt and input aligned */
 }

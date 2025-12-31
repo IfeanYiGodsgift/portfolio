@@ -7,11 +7,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="terminal">
+    <div class="terminal" onclick="document.getElementById('cmd-input').focus()">
         <div id="output"></div>
         
         <div class="input-line">
             <span class="prompt">guest@God'sGift-pc:~$</span>
+            
+            <span id="type-display"></span><span class="cursor">█</span>
+            
             <input type="text" id="cmd-input" autofocus autocomplete="off">
         </div>
         
