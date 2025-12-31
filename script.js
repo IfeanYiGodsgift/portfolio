@@ -1,11 +1,10 @@
 const output = document.getElementById('output');
 const input = document.getElementById('cmd-input');
+const typeDisplay = document.getElementById('type-display');
 
-// 1. PASTE YOUR ASCII ART HERE BETWEEN THE BACKTICKS
+// ASCII Art
 const banner = `
 IfeanYiGodsgift (IG) Not A Corporation. All rights reserved.
-
-
 
  ░▒▓██████▓▒░ ░▒▓██████▓▒░░▒▓███████▓▒░ ░▒▓███████▓▒░░▒▓██████▓▒░░▒▓█▓▒░▒▓████████▓▒░▒▓████████▓▒░ 
 ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░         ░▒▓█▓▒░     
@@ -14,7 +13,6 @@ IfeanYiGodsgift (IG) Not A Corporation. All rights reserved.
 ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░         ░▒▓█▓▒░     
 ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░         ░▒▓█▓▒░     
  ░▒▓██████▓▒░ ░▒▓██████▓▒░░▒▓███████▓▒░░▒▓███████▓▒░ ░▒▓██████▓▒░░▒▓█▓▒░▒▓█▓▒░         ░▒▓█▓▒░ © 2026                                                                                                       
-                                                                                                   
 `;
 
 const welcomeText = `
@@ -29,38 +27,31 @@ const commands = {
     projects: "Loading projects... <br> 1. Honda Accord OBD-II Reader <br> 2. Wellness App API <br> <br> Type 'open 1' to see details for the Honda Project."
 };
 
-// 2. The Boot Sequence Logic
+// 1. Boot Sequence Logic
 window.onload = function() {
-    // Select the container that holds the prompt and input
     const inputLine = document.querySelector('.input-line');
     
-    // Ensure it's hidden and disabled at start
     input.disabled = true;
     inputLine.style.display = 'none';
     
-    // Step 1: Boot text
     printLine("Initialising kernel...");
     setTimeout(() => printLine("Loading user profile: IfeanYiGodsgift..."), 1200);
     setTimeout(() => printLine("Mounting file systems..."), 1800);
     
-    // Step 2: The Wipe & Banner Load
     setTimeout(() => {
-        // Clear screen
-        output.innerHTML = "";
+        output.innerHTML = ""; // Wipe screen
         
-        // Print ASCII Banner
         const pre = document.createElement("div");
         pre.className = "ascii-art";
         pre.innerText = banner;
         output.appendChild(pre);
         
-        // Print Welcome Text
         printLine(welcomeText);
         
-        // Step 3: Reveal the Input Line and Focus
-        inputLine.style.display = 'flex'; // Make it visible now
-        input.disabled = false;           // Unlock typing
-        input.focus();                    // Auto-select the cursor
+        // Reveal Input
+        inputLine.style.display = 'flex';
+        input.disabled = false;
+        input.focus();
     }, 2200);
 };
 
@@ -71,29 +62,46 @@ function printLine(text) {
     window.scrollTo(0, document.body.scrollHeight);
 }
 
+// 2. Input Logic (Sync Hidden Input to Visible Span)
+input.addEventListener("input", function() {
+    typeDisplay.textContent = input.value;
+});
+
 input.addEventListener("keydown", function(e) {
     if (e.key === "Enter") {
         const cmd = input.value.toLowerCase().trim();
-        input.value = ""; 
         
-        // Print the command the user typed
-        printLine(`<span class="prompt">guest@God'sGift:~$</span> ${cmd}`);
+        // Print the command line to history
+        printLine(`<span class="prompt">guest@God'sGift-pc:~$</span> ${cmd}`);
+        
+        // Clear inputs
+        input.value = ""; 
+        typeDisplay.textContent = "";
         
         if (commands[cmd]) {
             printLine(commands[cmd]);
         } else if (cmd === 'clear') {
-            // Restore the banner after clear? Or total clear?
-            // "Total clear" is standard terminal behavior
-            output.innerHTML = "";
+            output.innerHTML = ""; // Note: This clears ASCII art too, typical terminal behavior
         } else if (cmd === 'open 1') {
             window.location.href = "project.html"; 
         } else {
             printLine(`Command not found: ${cmd}. Type 'help'.`);
         }
+        
+        // Keep focus
+        input.focus();
+        window.scrollTo(0, document.body.scrollHeight);
     }
 });
 
+// Mobile Button Logic
 function runCmd(cmd) {
     input.value = cmd;
+    typeDisplay.textContent = cmd; // Update visual
     input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
 }
+
+// Focus input anywhere on click
+document.addEventListener('click', function() {
+    input.focus();
+});
