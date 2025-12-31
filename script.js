@@ -1,7 +1,27 @@
 const output = document.getElementById('output');
 const input = document.getElementById('cmd-input');
 
-// The "Database" of text to display
+// 1. PASTE YOUR ASCII ART HERE BETWEEN THE BACKTICKS
+const banner = `
+IfeanYiGodsgift (IG) Not A Corporation. All rights reserved.
+         ___   ____
+       /' --;^/ ,-_\\     \\ | /      
+      / / --o\\ o-\\ \\\\   --(_)--  
+     /-/-/|o|-|\\-\\|\\\\   / | \\   ______                          __     __ __       _       __    __  
+      '\`  \` |-|   \`\` '          / ____/___  _____________  _____/ /_   / //_/____  (_)___ _/ /_  / /_
+            |-|                / /_  / __ \\/ ___/ ___/ _ \\/ ___/ __/  / ,<  / __ \\/ / __ \`/ __ \\/ __/
+            |-|O              / __/ / /_/ / /  / /  /  __(__  ) /_   / /| |/ / / / / /_/ / / / / /_  
+            |-(\\,,__          /_/    \\____/_/  /_/   \\___/____/\\__/  /_/ |_/_/ /_/_/\\__, /_/ /_/\\__/
+        ...|-|\\--,\\_....                                                 /____/    © 2026
+      ,;;;;;;;;;;;;;;;;;;;;;;;;,.  
+~~,;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;,~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`;
+
+const welcomeText = `
+Welcome to my interactive web terminal.
+For a list of available commands, type <span class="cmd">'help'</span>.
+`;
+
 const commands = {
     help: "Available commands: <br> - about<br> - projects<br> - contact<br> - clear",
     about: "I am a backend developer and CS student at Pan-Atlantic University.<br>Focus: Backend Systems, Zorin OS, Automotive Engineering.",
@@ -9,32 +29,58 @@ const commands = {
     projects: "Loading projects... <br> 1. Honda Accord OBD-II Reader <br> 2. Wellness App API <br> <br> Type 'open 1' to see details for the Honda Project."
 };
 
-// 1. Boot Sequence (The "Cool Factor")
+// 2. The Boot Sequence Logic
 window.onload = function() {
+    // Disable input during boot
+    input.disabled = true;
+    
+    // Step 1: Boot text
     printLine("Initialising kernel...");
-    setTimeout(() => printLine("Loading user profile: IfeanYiGodsgift..."), 500);
-    setTimeout(() => printLine("System ready. Type 'help' for commands."), 1200);
+    setTimeout(() => printLine("Loading user profile: IfeanYiGodsgift..."), 600);
+    setTimeout(() => printLine("Mounting file systems..."), 1200);
+    
+    // Step 2: The Wipe & Banner Load
+    setTimeout(() => {
+        // Clear screen
+        output.innerHTML = "";
+        
+        // Print ASCII Banner (using <pre> tag to keep format)
+        const pre = document.createElement("div");
+        pre.className = "ascii-art";
+        pre.innerText = banner;
+        output.appendChild(pre);
+        
+        // Print Welcome Text
+        printLine(welcomeText);
+        
+        // Enable input
+        input.disabled = false;
+        input.focus();
+    }, 2200); // Happens 2.2 seconds after load
 };
 
 function printLine(text) {
-    output.innerHTML += `<div>${text}</div>`;
+    const line = document.createElement("div");
+    line.innerHTML = text;
+    output.appendChild(line);
     window.scrollTo(0, document.body.scrollHeight);
 }
 
-// 2. Handle Input
 input.addEventListener("keydown", function(e) {
     if (e.key === "Enter") {
         const cmd = input.value.toLowerCase().trim();
-        input.value = ""; // Clear input
+        input.value = ""; 
         
+        // Print the command the user typed
         printLine(`<span class="prompt">guest@ifeanyi-pc:~$</span> ${cmd}`);
         
         if (commands[cmd]) {
             printLine(commands[cmd]);
         } else if (cmd === 'clear') {
+            // Restore the banner after clear? Or total clear?
+            // "Total clear" is standard terminal behavior
             output.innerHTML = "";
         } else if (cmd === 'open 1') {
-            // This satisfies the "Dedicated Project Page" requirement 
             window.location.href = "project.html"; 
         } else {
             printLine(`Command not found: ${cmd}. Type 'help'.`);
@@ -42,10 +88,7 @@ input.addEventListener("keydown", function(e) {
     }
 });
 
-// 3. Mobile Button Handler
 function runCmd(cmd) {
     input.value = cmd;
-    // Trigger the enter key event manually
-    const event = new KeyboardEvent('keydown', { key: 'Enter' });
-    input.dispatchEvent(event);
+    input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
 }
