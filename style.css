@@ -49,10 +49,25 @@ body {
 
 /* Hidden Input */
 #cmd-input {
-    opacity: 0;
-    position: absolute;
-    width: 0;
-    height: 0;
+    opacity: 0;           /* Invisible */
+    position: absolute;   /* Take out of layout flow */
+    
+    /* CRITICAL FOR MOBILE: */
+    width: 100%;          /* Make it wide so it captures taps */
+    height: 100%;         /* Cover the line */
+    top: 0;
+    left: 0;
+    z-index: 10;          /* Sit on top of everything */
+    
+    /* Prevent iOS Zoom on focus */
+    font-size: 16px;      
+    
+    /* Remove default styling */
+    background: transparent;
+    border: none;
+    outline: none;
+    color: transparent;
+    caret-color: transparent; /* Hide the default blinking cursor */
 }
 
 /* Links */
@@ -63,7 +78,8 @@ a { color: #fff; text-decoration: underline; cursor: pointer; }
     display: none;       
     margin-top: 20px;    
     align-items: center; 
-    display: flex;       
+    display: flex;
+    position: relative; /* REQUIRED for the absolute input to work */
 }
 
 /* --- NEW STYLES BELOW --- */

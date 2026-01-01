@@ -134,7 +134,11 @@ input.addEventListener("keydown", function(e) {
 
 // 2. Mirror Typing (Sync Hidden Input to Visible Span)
 input.addEventListener("input", function() {
+    // This simple line usually fixes 99% of sync issues
     typeDisplay.textContent = input.value;
+    
+    // Mobile Chrome fix: Scroll to bottom while typing
+    window.scrollTo(0, document.body.scrollHeight);
 });
 
 // 3. Keep Focus
