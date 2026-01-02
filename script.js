@@ -16,7 +16,6 @@ IfeanYiGodsgift (IG) Not A Corporation. All rights reserved.
                                                                                 © 2026
 `;
 
-// A smaller banner that fits on mobile screens
 const mobileBanner = `
 IfeanYiGodsgift (IG) Not A Corporation. All rights reserved.
 
@@ -88,7 +87,6 @@ const helpOptions = [
     { cmd: "clear", desc: "Wipe screen" }
 ];
 
-// --- HISTORY LOGIC ---
 let commandHistory = [];
 let historyIndex = -1;
 
@@ -105,8 +103,6 @@ window.onload = function() {
         output.innerHTML = "";
         printBanner();
         printToScreen("Welcome to my interactive web terminal.");
-        
-        // 1. UPDATED: 'help' is now a clickable link!
         printToScreen("For a list of available commands, type or click on <span class='cmd-link glow' onclick=\"runCmd('help')\">'help'</span>.");
         
         inputLine.style.display = 'flex';
@@ -115,7 +111,7 @@ window.onload = function() {
     }, 2000);
 };
 
-// --- MAIN FUNCTIONS ---
+// --- FUNCTIONS ---
 
 function processCommand(cmd) {
     switch (cmd) {
@@ -190,18 +186,16 @@ function printBanner() {
     output.appendChild(pre);
 }
 
-// 2. UPDATED: Mobile Click Helper
 function runCmd(cmd) {
     input.value = cmd;
     typeDisplay.textContent = cmd;
-    // Trigger Enter
     input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
-    
-    // CRITICAL FIX: Hide keyboard on mobile after clicking a link
+    // Force blur to hide keyboard on mobile
     input.blur(); 
 }
 
-// Input Event Listeners
+// --- EVENT LISTENERS ---
+
 input.addEventListener("keydown", function(e) {
     if (e.key === "Enter") {
         let command = input.value.toLowerCase().trim();
@@ -240,12 +234,18 @@ input.addEventListener("input", function() {
     window.scrollTo(0, document.body.scrollHeight);
 });
 
-// 3. UPDATED: Global Click Listener
+// --- UPDATED GLOBAL CLICK LISTENER ---
 document.addEventListener('click', function(e) {
-    // If the user clicked a command link (or inside one), do NOT focus the input
-    if (e.target.classList.contains('cmd-link')) {
-        return;
+    // 1. Check if the clicked element (or its parent) is a Command Link
+    if (e.target.closest('.cmd-link')) {
+        return; // Ignore click, do not focus
     }
-    // Only focus input (and pop keyboard) if they clicked empty space
+
+    // 2. Check if the clicked element is a Mobile Button
+    if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+        return; // Ignore click, do not focus
+    }
+
+    // 3. Otherwise, if clicking empty space, focus the input to type
     input.focus();
 });
