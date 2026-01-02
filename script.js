@@ -20,6 +20,7 @@ IfeanYiGodsgift (IG) Not A Corporation. All rights reserved.
 const mobileBanner = `
 IfeanYiGodsgift (IG) Not A Corporation. All rights reserved.
 
+
 ░█▀▀░█▀█░█▀▄░█▀▀░█▀▀░▀█▀░█▀▀░▀█▀
 ░█░█░█░█░█░█░▀▀█░█░█░░█░░█▀▀░░█░
 ░▀▀▀░▀▀▀░▀▀░░▀▀▀░▀▀▀░▀▀▀░▀░░░░▀░© 2026
