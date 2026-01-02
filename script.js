@@ -26,13 +26,12 @@ IfeanYiGodsgift (IG) Not A Corporation. All rights reserved.
 ░▀▀▀░▀▀▀░▀▀░░▀▀▀░▀▀▀░▀▀▀░▀░░░░▀░© 2026
 `;
 
-// --- DATA STORE (Real Projects + Images) ---
+// --- DATA STORE ---
 const data = {
     about: "I am a backend developer and CS student at Pan-Atlantic University.<br>Focus: Backend Systems, Zorin OS, Automotive Engineering.",
     
     contact: "Email: your-email@example.com<br>GitHub: github.com/IfeanYiGodsgift<br>LinkedIn: linkedin.com/in/ifeanyi",
     
-    // The Main Projects List
     projects: `
     Loading source code repositories... <br><br>
     
@@ -47,7 +46,6 @@ const data = {
     Type <span class="cmd-link" onclick="runCmd('open 2')">'open 2'</span> to view details.
     `,
 
-    // Project 1 Details (Honda)
     project_1: `
         <br>
         <span>PROJECT: HONDA_OBD_TOOL(1)</span><br>
@@ -65,7 +63,6 @@ const data = {
         <span class="subtle">[End of File]</span>
     `,
 
-    // Project 2 Details (Backend)
     project_2: `
         <br>
         <span>PROJECT: GROUP_CI_PIPELINE(1)</span><br>
@@ -106,9 +103,11 @@ window.onload = function() {
 
     setTimeout(() => {
         output.innerHTML = "";
-        printBanner(); // Now smart enough to pick mobile vs desktop
+        printBanner();
         printToScreen("Welcome to my interactive web terminal.");
-        printToScreen("For a list of available commands, type <span class='cmd glow'>'help'</span>.");
+        
+        // 1. UPDATED: 'help' is now a clickable link!
+        printToScreen("For a list of available commands, type <span class='cmd-link glow' onclick=\"runCmd('help')\">'help'</span>.");
         
         inputLine.style.display = 'flex';
         input.disabled = false;
@@ -144,14 +143,11 @@ function processCommand(cmd) {
         case 'clear':
             output.innerHTML = "";
             break;
-        
-        // --- EASTER EGGS ---
         case 'sudo':
             printToScreen("<span class='glow'>PERMISSION DENIED:</span> You are not an administrator. Nice try.");
             break;
         case 'matrix':
             printToScreen("Wake up, Neo... (The matrix effect is loading...)");
-            // You can add a real effect here later if we have time
             break;
         case 'ls':
             printToScreen("index.html  style.css  script.js  secret_plans.txt");
@@ -159,7 +155,6 @@ function processCommand(cmd) {
         case 'cat secret_plans.txt':
             printToScreen("Plans: 1. Graduate. 2. Build Hypercar. 3. Rule the world.");
             break;
-            
         case '':
             break;
         default:
@@ -172,7 +167,6 @@ function generateHelpMenu() {
     let menuHTML = "<br>";
     for (let i = 0; i < helpOptions.length; i++) {
         let item = helpOptions[i];
-        // MADE CLICKABLE for Mobile Users!
         menuHTML += `<span class="cmd-link glow" onclick="runCmd('${item.cmd}')">${item.cmd}</span> <span class="subtle">- ${item.desc}</span><br><br>`;
     }
     printToScreen(menuHTML);
@@ -188,7 +182,6 @@ function printToScreen(text) {
 function printBanner() {
     const pre = document.createElement("div");
     pre.className = "ascii-art";
-    // Check screen width to decide which banner to show
     if (window.innerWidth < 768) {
         pre.innerText = mobileBanner;
     } else {
@@ -197,12 +190,15 @@ function printBanner() {
     output.appendChild(pre);
 }
 
-// Mobile/Click Helper
+// 2. UPDATED: Mobile Click Helper
 function runCmd(cmd) {
     input.value = cmd;
     typeDisplay.textContent = cmd;
     // Trigger Enter
     input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+    
+    // CRITICAL FIX: Hide keyboard on mobile after clicking a link
+    input.blur(); 
 }
 
 // Input Event Listeners
@@ -244,6 +240,12 @@ input.addEventListener("input", function() {
     window.scrollTo(0, document.body.scrollHeight);
 });
 
-document.addEventListener('click', function() {
+// 3. UPDATED: Global Click Listener
+document.addEventListener('click', function(e) {
+    // If the user clicked a command link (or inside one), do NOT focus the input
+    if (e.target.classList.contains('cmd-link')) {
+        return;
+    }
+    // Only focus input (and pop keyboard) if they clicked empty space
     input.focus();
 });
