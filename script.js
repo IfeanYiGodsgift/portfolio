@@ -18,12 +18,14 @@ IfeanYiGodsgift (IG) Not A Corporation. All rights reserved.
 
 // A smaller banner that fits on mobile screens
 const mobileBanner = `
-IfeanYiGodsgift (IG)
-  ___  ___  
- | _ )|   \\ 
- | _ \\| |) |
- |___/|___/ 
- Not A Corp.
+IfeanYiGodsgift (IG) Not A Corporation. All rights reserved.
+
+░░      ░░░░      ░░░       ░░░░      ░░░░      ░░░        ░░        ░░        ░
+▒  ▒▒▒▒▒▒▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒  ▒▒  ▒▒▒▒▒▒▒▒  ▒▒▒▒▒▒▒▒▒▒▒  ▒▒▒▒▒  ▒▒▒▒▒▒▒▒▒▒▒  ▒▒▒▒
+▓  ▓▓▓   ▓▓  ▓▓▓▓  ▓▓  ▓▓▓▓  ▓▓▓      ▓▓▓  ▓▓▓   ▓▓▓▓▓  ▓▓▓▓▓      ▓▓▓▓▓▓▓  ▓▓▓▓
+█  ████  ██  ████  ██  ████  ████████  ██  ████  █████  █████  ███████████  ████
+██      ████      ███       ████      ████      ███        ██  ███████████  ████
+                                                                                © 2026
 `;
 
 // --- DATA STORE (Real Projects + Images) ---
