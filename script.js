@@ -27,7 +27,12 @@ IfeanYiGodsgift (IG) Not A Corporation. All rights reserved.
 
 const data = {
     about: "I am a backend developer and CS student at Pan-Atlantic University.<br>Focus: Backend Systems, Zorin OS, Automotive Engineering.",
-    contact: "Email: your-email@example.com<br>GitHub: github.com/IfeanYiGodsgift<br>LinkedIn: linkedin.com/in/ifeanyi",
+    
+    // UPDATED: Now uses clickable commands instead of just text
+    contact: "Connect with me via:<br><br>" +
+             "1. <span class='cmd-link glow' onclick=\"runCmd('linkedin')\">LinkedIn</span> (Godsgift Ifeanyi)<br>" +
+             "2. <span class='cmd-link glow' onclick=\"runCmd('email')\">Email</span> (giftifeanyi2018@gmail.com)<br>" +
+             "3. <span class='cmd-link glow' onclick=\"runCmd('github')\">GitHub</span> (IfeanYiGodsgift)",
     
     projects: `
     Loading source code repositories... <br><br>
@@ -151,6 +156,22 @@ function processCommand(cmd) {
         case 'clear':
             output.innerHTML = "";
             break;
+        
+        // --- NEW CONTACT COMMANDS ---
+        case 'linkedin':
+            printToScreen("Opening LinkedIn profile...");
+            window.open("https://www.linkedin.com/in/godsgift-ifeanyi-094803299?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", "_blank");
+            break;
+        case 'email':
+            printToScreen("Opening mail client...");
+            window.location.href = "mailto:giftifeanyi2018@gmail.com";
+            break;
+        case 'github':
+            printToScreen("Opening GitHub profile...");
+            window.open("https://github.com/IfeanYiGodsgift", "_blank");
+            break;
+
+        // --- EASTER EGGS ---
         case 'sudo':
             printToScreen("<span class='glow'>PERMISSION DENIED:</span> You are not an administrator. Nice try.");
             break;
