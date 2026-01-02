@@ -107,7 +107,7 @@ window.onload = function() {
         printToScreen("Welcome to my interactive web terminal.");
         
         // 1. UPDATED: 'help' is now a clickable link!
-        printToScreen("For a list of available commands, type <span class='cmd-link glow' onclick=\"runCmd('help')\">'help'</span>.");
+        printToScreen("For a list of available commands, type or click on <span class='cmd-link glow' onclick=\"runCmd('help')\">'help'</span>.");
         
         inputLine.style.display = 'flex';
         input.disabled = false;
