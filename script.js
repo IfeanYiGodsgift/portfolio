@@ -84,6 +84,7 @@ const helpOptions = [
     { cmd: "projects", desc: "View my code" },
     { cmd: "contact", desc: "Hire me" },
     { cmd: "banner", desc: "Reprint header" },
+    { cmd: "help", desc: "Run help". }
     { cmd: "clear", desc: "Wipe screen" }
 ];
 
