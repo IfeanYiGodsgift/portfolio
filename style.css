@@ -101,7 +101,10 @@ a { color: #fff; text-decoration: underline; cursor: pointer; }
 }
 
 @media (max-width: 768px) {
-    .ascii-art { display: none; }
+    .ascii-art {
+        font-size: 8px; 
+        line-height: 8px;
+    }
     body { padding: 10px; }
 }
 
