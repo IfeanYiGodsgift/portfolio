@@ -1,10 +1,10 @@
-// --- DOM ELEMENTS ---
+// --- 1. DOM ELEMENTS (The parts of the HTML we need) ---
 const output = document.getElementById('output');
 const input = document.getElementById('cmd-input');
 const typeDisplay = document.getElementById('type-display');
 const inputLine = document.querySelector('.input-line');
 
-// --- ASSETS (Banners) ---
+// --- 2. DATA (The content) ---
 const desktopBanner = `
 IfeanYiGodsgift (IG) Not A Corporation. All rights reserved.
 
@@ -25,10 +25,8 @@ IfeanYiGodsgift (IG) Not A Corporation. All rights reserved.
 ░▀▀▀░▀▀▀░▀▀░░▀▀▀░▀▀▀░▀▀▀░▀░░░░▀░© 2026
 `;
 
-// --- DATA STORE ---
 const data = {
     about: "I am a backend developer and CS student at Pan-Atlantic University.<br>Focus: Backend Systems, Zorin OS, Automotive Engineering.",
-    
     contact: "Email: your-email@example.com<br>GitHub: github.com/IfeanYiGodsgift<br>LinkedIn: linkedin.com/in/ifeanyi",
     
     projects: `
@@ -88,33 +86,46 @@ const helpOptions = [
     { cmd: "clear", desc: "Wipe screen" }
 ];
 
+// Variables to remember history
 let commandHistory = [];
 let historyIndex = -1;
 
-// --- BOOT SEQUENCE ---
+// --- 3. BOOT SEQUENCE (Runs when page loads) ---
 window.onload = function() {
+    // 1. Hide the input while booting
     input.disabled = true;
     inputLine.style.display = 'none';
 
+    // 2. Print boot messages with delays
     printToScreen("Initialising kernel...");
-    setTimeout(() => printToScreen("Loading user profile: IfeanYiGodsgift..."), 600);
-    setTimeout(() => printToScreen("Mounting file systems..."), 1200);
+    
+    setTimeout(function() {
+        printToScreen("Loading user profile: GODSGIFT...");
+    }, 600);
 
-    setTimeout(() => {
-        output.innerHTML = "";
+    setTimeout(function() {
+        printToScreen("Mounting file systems...");
+    }, 1200);
+
+    // 3. Clear screen and show terminal
+    setTimeout(function() {
+        output.innerHTML = ""; // Clear screen
         printBanner();
         printToScreen("Welcome to my interactive web terminal.");
         printToScreen("For a list of available commands, type or click on <span class='cmd-link glow' onclick=\"runCmd('help')\">'help'</span>.");
         
+        // Show input line and focus it
         inputLine.style.display = 'flex';
         input.disabled = false;
         input.focus();
     }, 2000);
 };
 
-// --- FUNCTIONS ---
+// --- 4. MAIN LOGIC FUNCTIONS ---
 
+// This function decides what to do based on the command
 function processCommand(cmd) {
+    // SWITCH STATEMENT: A simple way to check multiple values
     switch (cmd) {
         case 'help':
             generateHelpMenu();
@@ -153,6 +164,7 @@ function processCommand(cmd) {
             printToScreen("Plans: 1. Graduate. 2. Build Hypercar. 3. Rule the world.");
             break;
         case '':
+            // Do nothing if empty
             break;
         default:
             printToScreen(`Command not found: ${cmd}. Type <span class="glow">'help'</span>.`);
@@ -160,93 +172,134 @@ function processCommand(cmd) {
     }
 }
 
+// This function creates the help menu using a Loop
 function generateHelpMenu() {
     let menuHTML = "<br>";
-    for (let i = 0; i < helpOptions.length; i++) {
+    
+    // FOR LOOP: Go through every item in the helpOptions list
+    for (let i = 0; i < helpOptions.length; i = i + 1) {
         let item = helpOptions[i];
+        // Add each item to the HTML string
         menuHTML += `<span class="cmd-link glow" onclick="runCmd('${item.cmd}')">${item.cmd}</span> <span class="subtle">- ${item.desc}</span><br><br>`;
     }
+    
     printToScreen(menuHTML);
 }
 
+// This function adds text to the screen
 function printToScreen(text) {
     const line = document.createElement("div");
     line.innerHTML = text;
     output.appendChild(line);
+    // Scroll to the bottom
     window.scrollTo(0, document.body.scrollHeight);
 }
 
+// This function prints the ASCII art
 function printBanner() {
     const pre = document.createElement("div");
     pre.className = "ascii-art";
+    
+    // CONDITION: Check screen width
     if (window.innerWidth < 768) {
         pre.innerText = mobileBanner;
     } else {
         pre.innerText = desktopBanner;
     }
+    
     output.appendChild(pre);
 }
 
+// This function is called when a user clicks a link
 function runCmd(cmd) {
     input.value = cmd;
     typeDisplay.textContent = cmd;
-    input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
-    // Force blur to hide keyboard on mobile
-    input.blur(); 
+    handleEnter(); // Run the command directly
+    input.blur();  // Hide keyboard on mobile
 }
 
-// --- EVENT LISTENERS ---
+// --- 5. KEYBOARD HANDLING FUNCTIONS ---
 
-input.addEventListener("keydown", function(e) {
-    if (e.key === "Enter") {
-        let command = input.value.toLowerCase().trim();
-        if (command !== "") {
-            commandHistory.push(command);
-            historyIndex = commandHistory.length;
-        }
-        printToScreen(`<span class="prompt">guest@God'sGift-pc:~$</span> ${command}`);
-        processCommand(command);
+function handleEnter() {
+    // Get the value and clean it up (lowercase, remove spaces)
+    let command = input.value.toLowerCase().trim();
+    
+    // Only save if it's not empty
+    if (command !== "") {
+        commandHistory.push(command);
+        historyIndex = commandHistory.length; // Reset index to end
+    }
+    
+    // Print what the user typed
+    printToScreen(`<span class="prompt">guest@God'sGift-pc:~$</span> ${command}`);
+    
+    // Run the logic
+    processCommand(command);
+    
+    // Clear inputs
+    input.value = "";
+    typeDisplay.textContent = "";
+    window.scrollTo(0, document.body.scrollHeight);
+}
+
+function handleArrowUp() {
+    // Only go back if we are not at the start
+    if (historyIndex > 0) {
+        historyIndex = historyIndex - 1; // Go back one
+        input.value = commandHistory[historyIndex];
+        typeDisplay.textContent = input.value;
+    }
+}
+
+function handleArrowDown() {
+    // Only go forward if we are not at the end
+    if (historyIndex < commandHistory.length - 1) {
+        historyIndex = historyIndex + 1; // Go forward one
+        input.value = commandHistory[historyIndex];
+        typeDisplay.textContent = input.value;
+    } else {
+        // If we are at the end, clear the line
+        historyIndex = commandHistory.length;
         input.value = "";
         typeDisplay.textContent = "";
-        window.scrollTo(0, document.body.scrollHeight);
-    } else if (e.key === "ArrowUp") {
-        if (historyIndex > 0) {
-            historyIndex--;
-            input.value = commandHistory[historyIndex];
-            typeDisplay.textContent = input.value;
-        }
+    }
+}
+
+// --- 6. EVENT LISTENERS (Waiting for user actions) ---
+
+// Listen for key presses
+input.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        handleEnter();
+    } 
+    else if (e.key === "ArrowUp") {
+        e.preventDefault(); // Stop cursor from moving to start
+        handleArrowUp();
+    } 
+    else if (e.key === "ArrowDown") {
         e.preventDefault();
-    } else if (e.key === "ArrowDown") {
-        if (historyIndex < commandHistory.length - 1) {
-            historyIndex++;
-            input.value = commandHistory[historyIndex];
-            typeDisplay.textContent = input.value;
-        } else {
-            historyIndex = commandHistory.length;
-            input.value = "";
-            typeDisplay.textContent = "";
-        }
-        e.preventDefault();
+        handleArrowDown();
     }
 });
 
+// Sync the hidden input with the visible text
 input.addEventListener("input", function() {
     typeDisplay.textContent = input.value;
     window.scrollTo(0, document.body.scrollHeight);
 });
 
-// --- UPDATED GLOBAL CLICK LISTENER ---
+// Handle clicks on the background (Focus input unless clicking a link)
 document.addEventListener('click', function(e) {
-    // 1. Check if the clicked element (or its parent) is a Command Link
+    // 1. Check if clicked on a Command Link
     if (e.target.closest('.cmd-link')) {
-        return; // Ignore click, do not focus
+        return; // Do nothing
     }
 
-    // 2. Check if the clicked element is a Mobile Button
-    if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
-        return; // Ignore click, do not focus
+    // 2. Check if clicked on a Button
+    if (e.target.tagName === 'BUTTON') {
+        return; // Do nothing
     }
 
-    // 3. Otherwise, if clicking empty space, focus the input to type
+    // 3. Otherwise, focus the input
     input.focus();
 });
