@@ -1,6 +1,5 @@
 # Personal Portfolio - Terminal Edition
-
----                                                                                                 
+                                                                                                 
                                                                                                    
 **Name:** IfeanYiGodsgift  
 **Matric Number:** 22120612990  
