@@ -189,7 +189,7 @@ function processCommand(cmd) {
             window.open("https://github.com/IfeanYiGodsgift", "_blank");
             break;
 
-        //Easster eggs
+        //Easster eggs may add more or modify later if i have time
         case 'sudo':
             printToScreen("<span class='glow'>PERMISSION DENIED:</span> You are not an administrator. Nice try.");
             break;
@@ -200,7 +200,7 @@ function processCommand(cmd) {
             printToScreen("index.html  style.css  script.js  kopykat_setup.exe  kopykat_linux.deb");
             break;
         case 'cat secret_plans.txt':
-            printToScreen("Plans: 1. Graduate. 2. Build Hypercar. 3. Rule the world.");
+            printToScreen("Plans: 1. Graduate. 2. Please let me Pass. 3. I really want to Pass and then Graduate please .");
             break;
         case '':
             break;
