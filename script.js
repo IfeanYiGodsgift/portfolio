@@ -63,7 +63,7 @@ const data = {
         React.js, Node.js (Express), MongoDB Atlas, Vercel.<br><br>
         
         <span class="subtle">LINKS:</span><br>
-        <a href="https://github.com/IfeanYiGodsgift/Snippet_Vault" target="_blank">[GitHub Repo]</a> &nbsp; <a href="https://snippet-vault-frontend.vercel.app/" target="_blank">[Live Site]</a><br><br>
+        <a href="https://github.com/IfeanYiGodsgift/SnippetVault" target="_blank">[GitHub Repo]</a> &nbsp; <a href="https://snippets-vault.vercel.app/" target="_blank">[Live Site]</a><br><br>
         
         <span class="subtle">EVIDENCE:</span><br>
         <img src="snippet_vault.png" class="terminal-img"><br>
