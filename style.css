@@ -49,7 +49,7 @@ body {
 
 /* Hidden Input */
 #cmd-input {
-    opacity: 0;           /* Invisible */
+    opacity: 0;           
     position: absolute;   /* Take out of layout flow */
     
     /* CRITICAL FOR MOBILE: */
@@ -82,19 +82,19 @@ a { color: #fff; text-decoration: underline; cursor: pointer; }
     position: relative; /* REQUIRED for the absolute input to work */
 }
 
-/* --- NEW STYLES BELOW --- */
+/*NEW STYLES BELOW*/
 
-/* 1. Hide Mobile Buttons (Requested Change) */
+/* 1. Hide Mobile Buttons */
 .mobile-controls {
     display: none !important;
 }
 
-/* 2. Glow Effect (For specific text) */
+/* 2. Glow Effect */
 .glow {
     text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00;
 }
 
-/* 3. Subtle Brown Text (For descriptions) */
+/* 3. Subtle Brown Text*/
 .subtle {
     color: #c5a365; /* Vintage Terminal Amber/Brown */
     font-style: italic;
@@ -112,11 +112,11 @@ a { color: #fff; text-decoration: underline; cursor: pointer; }
 /* TERMINAL IMAGES */
 .terminal-img {
     max-width: 100%;
-    border: 2px solid #00ff00; /* Green Border */
+    border: 2px solid #00ff00;
     margin-top: 10px;
     margin-bottom: 10px;
     opacity: 0.9;
-    /* Optional: Makes image look like an old CRT screen */
+    /* Makes image look like an old CRT screen */
     filter: sepia(100%) hue-rotate(50deg) saturate(300%) contrast(1.2); 
 }
 

@@ -1,10 +1,9 @@
-// --- 1. DOM ELEMENTS (The parts of the HTML we need) ---
 const output = document.getElementById('output');
 const input = document.getElementById('cmd-input');
 const typeDisplay = document.getElementById('type-display');
 const inputLine = document.querySelector('.input-line');
 
-// --- 2. DATA (The content) ---
+// I am super proud of these banners, they are subject to change but i like the style
 const desktopBanner = `
 IfeanYiGodsgift (IG) Not A Corporation. All rights reserved.
 
@@ -15,7 +14,7 @@ IfeanYiGodsgift (IG) Not A Corporation. All rights reserved.
 ██      ████      ███       ████      ████      ███        ██  ███████████  ████
                                                                                 © 2026
 `;
-
+// also i need a different one for mobile because it breaks and looks ugly if i use one that big on a small screen
 const mobileBanner = `
 IfeanYiGodsgift (IG) Not A Corporation. All rights reserved.
 
@@ -26,9 +25,8 @@ IfeanYiGodsgift (IG) Not A Corporation. All rights reserved.
 `;
 
 const data = {
-    about: "I am a backend developer and CS student at Pan-Atlantic University.<br>Focus: Backend Systems, Zorin OS, Automotive Engineering.",
+    about: "I am a backend developer and CS student at Pan-Atlantic University.<br>Focus: Backend Systems, Linux systems, Server Management, and Automotive Engineering.",
     
-    // UPDATED: Now uses clickable commands instead of just text
     contact: "Connect with me via:<br><br>" +
              "1. <span class='cmd-link glow' onclick=\"runCmd('linkedin')\">LinkedIn</span> (Godsgift Ifeanyi)<br>" +
              "2. <span class='cmd-link glow' onclick=\"runCmd('email')\">Email</span> (giftifeanyi2018@gmail.com)<br>" +
@@ -37,49 +35,67 @@ const data = {
     projects: `
     Loading source code repositories... <br><br>
     
-    <span class="glow">1. HONDA OBD-II DIAGNOSTIC TOOL</span><br>
-    <span class="subtle">Language: Python | Hardware: Raspberry Pi</span><br>
-    A custom hardware/software solution to diagnose oil pressure issues on a 2006 Honda Accord.<br>
+    <span class="glow">1. SNIPPET VAULT</span><br>
+    <span class="subtle">Status: Live | Type: Web Application</span><br>
+    A robust, full-stack personal code management tool designed to centralize and organize frequently used code blocks.<br>
     Type <span class="cmd-link" onclick="runCmd('open 1')">'open 1'</span> to view details.<br><br>
     
-    <span class="glow">2. UNIVERSITY GROUP BACKEND API</span><br>
-    <span class="subtle">Language: Node.js | Focus: CI/CD & Auth</span><br>
-    Backend architecture for a class project, featuring automated CI pipelines and secure staff authentication.<br>
-    Type <span class="cmd-link" onclick="runCmd('open 2')">'open 2'</span> to view details.
+    <span class="glow">2. KOPYKAT</span><br>
+    <span class="subtle">Status: Beta | Type: Cross-Platform App</span><br>
+    A local network clipboard manager that syncs text between desktop and mobile instantly without the cloud.<br>
+    Type <span class="cmd-link" onclick="runCmd('open 2')">'open 2'</span> to view details.<br><br>
     `,
 
+    // PROJECT 1: SNIPPET VAULT
     project_1: `
         <br>
-        <span>PROJECT: HONDA_OBD_TOOL(1)</span><br>
+        <span>PROJECT: SNIPPET_VAULT(1)</span><br>
         ----------------------------------------<br>
-        <span class="subtle">PROBLEM:</span><br>
-        My 2006 Honda Accord had intermittent low oil pressure. Commercial scanners were expensive and didn't log historical data.<br><br>
-        <span class="subtle">SOLUTION:</span><br>
-        Built a Python script running on a Raspberry Pi that interfaces with the ECU via an ELM327 adapter.<br><br>
-        <span class="subtle">KEY FEATURES:</span><br>
-        * Live reading of Oil Pressure & RPM sensors.<br>
-        * Automated CSV logging for trend analysis.<br>
-        * Custom error code implementation.<br><br>
+        <span class="subtle">THE PROBLEM:</span><br>
+        As a developer's codebase grows, valuable logic often gets buried in old repositories. I built Snippet Vault to solve "Code Fragmentation"—eliminating time wasted searching for specific utility functions.<br><br>
+        
+        <span class="subtle">THE SOLUTION:</span><br>
+        * <span class="glow">Dynamic CRUD:</span> Create, Read, Update, Delete in real-time.<br>
+        * <span class="glow">Intelligent Organization:</span> Multi-level tagging for Python, JS, C++, etc.<br>
+        * <span class="glow">Search Engine:</span> Instant full-text search to locate logic instantly.<br><br>
+        
+        <span class="subtle">TECH STACK:</span><br>
+        React.js, Node.js (Express), MongoDB Atlas, Vercel.<br><br>
+        
+        <span class="subtle">LINKS:</span><br>
+        <a href="https://github.com/IfeanYiGodsgift/Snippet_Vault" target="_blank">[GitHub Repo]</a> &nbsp; <a href="https://snippet-vault-frontend.vercel.app/" target="_blank">[Live Site]</a><br><br>
+        
         <span class="subtle">EVIDENCE:</span><br>
-        <img src="https://placehold.co/600x400/000000/00ff00?text=Scan+of+Engine+Data" class="terminal-img"><br>
+        <img src="snippet_vault.png" class="terminal-img"><br>
         <span class="subtle">[End of File]</span>
     `,
 
+    // PROJECT 2: KOPYKAT
     project_2: `
         <br>
-        <span>PROJECT: GROUP_CI_PIPELINE(1)</span><br>
+        <span>PROJECT: KOPYKAT(1)</span><br>
         ----------------------------------------<br>
-        <span class="subtle">ROLE:</span> Backend Developer<br><br>
-        <span class="subtle">DESCRIPTION:</span><br>
-        Designed the backend logic for a staff management system. My primary focus was automating deployment and securing user access.<br><br>
-        <span class="subtle">TECHNICAL WINS:</span><br>
-        * Built a GitHub Actions CI pipeline to run tests on every push.<br>
-        * Implemented JWT Authentication for secure staff login.<br>
-        * Optimized database queries for speed.<br><br>
+        <span class="subtle">THE PROBLEM:</span><br>
+        Moving text between a computer and phone is friction-heavy. I needed a solution that works instantly over a local network without requiring an internet connection or cloud login.<br><br>
+        
+        <span class="subtle">THE SOLUTION:</span><br>
+        KopyKat turns your computer into a local clipboard server. It allows any device on the WiFi to push/pull text instantly.<br>
+        * <span class="glow">Zero-Config:</span> Uses QR codes to pair devices.<br>
+        * <span class="glow">Privacy-First:</span> Data never leaves your Local Area Network.<br><br>
+        
+        <span class="subtle">TECH STACK:</span><br>
+        Electron, Node.js, Express, WebSockets.<br><br>
+        
+        <span class="subtle">DOWNLOAD INSTALLER:</span><br>
+        Select your platform to download the app:<br>
+        1. <span class="cmd-link glow" onclick="runCmd('download windows')">[Windows .exe]</span><br>
+        2. <span class="cmd-link glow" onclick="runCmd('download linux')">[Linux .deb]</span><br><br>
+        
         <span class="subtle">EVIDENCE:</span><br>
-        <img src="https://placehold.co/600x400/000000/00ff00?text=CI+Pipeline+Log" class="terminal-img"><br>
+        <img src="kopykat.png" class="terminal-img"><br>
         <span class="subtle">[End of File]</span>
     `
+    // Planned to use either group work or rextrack for project 3 but those dont have picture evidence so i have to use these 2.
 };
 
 const helpOptions = [
@@ -91,17 +107,14 @@ const helpOptions = [
     { cmd: "clear", desc: "Wipe screen" }
 ];
 
-// Variables to remember history
 let commandHistory = [];
 let historyIndex = -1;
 
-// --- 3. BOOT SEQUENCE (Runs when page loads) ---
+// Boot Sequence
 window.onload = function() {
-    // 1. Hide the input while booting
     input.disabled = true;
     inputLine.style.display = 'none';
 
-    // 2. Print boot messages with delays
     printToScreen("Initialising kernel...");
     
     setTimeout(function() {
@@ -112,25 +125,21 @@ window.onload = function() {
         printToScreen("Mounting file systems...");
     }, 1200);
 
-    // 3. Clear screen and show terminal
     setTimeout(function() {
-        output.innerHTML = ""; // Clear screen
+        output.innerHTML = ""; 
         printBanner();
         printToScreen("Welcome to my interactive web terminal.");
         printToScreen("For a list of available commands, type or click on <span class='cmd-link glow' onclick=\"runCmd('help')\">'help'</span>.");
         
-        // Show input line and focus it
         inputLine.style.display = 'flex';
         input.disabled = false;
         input.focus();
     }, 2000);
 };
 
-// --- 4. MAIN LOGIC FUNCTIONS ---
+// Main Logic
 
-// This function decides what to do based on the command
 function processCommand(cmd) {
-    // SWITCH STATEMENT: A simple way to check multiple values
     switch (cmd) {
         case 'help':
             generateHelpMenu();
@@ -150,14 +159,23 @@ function processCommand(cmd) {
         case 'open 2':
             printToScreen(data.project_2);
             break;
+        case 'download windows':
+            printToScreen("<span class='glow'>INITIATING DOWNLOAD...</span>");
+            printToScreen("INSTRUCTION: Double click the .exe to install. Allow any unsigned driver warnings (Self-Signed Certificate).");
+            // Links directly to the file in root
+            window.location.href = "kopykat_setup.exe";
+            break;
+        case 'download linux':
+            printToScreen("<span class='glow'>INITIATING DOWNLOAD...</span>");
+            printToScreen("INSTRUCTION: Open terminal in download folder and run: <br><span class='subtle'>sudo dpkg -i kopykat_linux.deb</span>");
+            window.location.href = "kopykat_linux.deb";
+            break;
         case 'banner':
             printBanner();
             break;
         case 'clear':
             output.innerHTML = "";
             break;
-        
-        // --- NEW CONTACT COMMANDS ---
         case 'linkedin':
             printToScreen("Opening LinkedIn profile...");
             window.open("https://www.linkedin.com/in/godsgift-ifeanyi-094803299?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", "_blank");
@@ -171,7 +189,7 @@ function processCommand(cmd) {
             window.open("https://github.com/IfeanYiGodsgift", "_blank");
             break;
 
-        // --- EASTER EGGS ---
+        //Easster eggs
         case 'sudo':
             printToScreen("<span class='glow'>PERMISSION DENIED:</span> You are not an administrator. Nice try.");
             break;
@@ -179,13 +197,12 @@ function processCommand(cmd) {
             printToScreen("Wake up, Neo... (The matrix effect is loading...)");
             break;
         case 'ls':
-            printToScreen("index.html  style.css  script.js  secret_plans.txt");
+            printToScreen("index.html  style.css  script.js  kopykat_setup.exe  kopykat_linux.deb");
             break;
         case 'cat secret_plans.txt':
             printToScreen("Plans: 1. Graduate. 2. Build Hypercar. 3. Rule the world.");
             break;
         case '':
-            // Do nothing if empty
             break;
         default:
             printToScreen(`Command not found: ${cmd}. Type <span class="glow">'help'</span>.`);
@@ -193,108 +210,83 @@ function processCommand(cmd) {
     }
 }
 
-// This function creates the help menu using a Loop
 function generateHelpMenu() {
     let menuHTML = "<br>";
-    
-    // FOR LOOP: Go through every item in the helpOptions list
     for (let i = 0; i < helpOptions.length; i = i + 1) {
         let item = helpOptions[i];
-        // Add each item to the HTML string
         menuHTML += `<span class="cmd-link glow" onclick="runCmd('${item.cmd}')">${item.cmd}</span> <span class="subtle">- ${item.desc}</span><br><br>`;
     }
-    
     printToScreen(menuHTML);
 }
 
-// This function adds text to the screen
 function printToScreen(text) {
     const line = document.createElement("div");
     line.innerHTML = text;
     output.appendChild(line);
-    // Scroll to the bottom
     window.scrollTo(0, document.body.scrollHeight);
 }
 
-// This function prints the ASCII art
 function printBanner() {
     const pre = document.createElement("div");
     pre.className = "ascii-art";
-    
-    // CONDITION: Check screen width
     if (window.innerWidth < 768) {
         pre.innerText = mobileBanner;
     } else {
         pre.innerText = desktopBanner;
     }
-    
     output.appendChild(pre);
 }
 
-// This function is called when a user clicks a link
 function runCmd(cmd) {
     input.value = cmd;
     typeDisplay.textContent = cmd;
-    handleEnter(); // Run the command directly
-    input.blur();  // Hide keyboard on mobile
+    handleEnter(); 
+    input.blur();  
 }
 
-// --- 5. KEYBOARD HANDLING FUNCTIONS ---
+// Keyboard handling functions to make it feel like a real terminal 
 
 function handleEnter() {
-    // Get the value and clean it up (lowercase, remove spaces)
     let command = input.value.toLowerCase().trim();
-    
-    // Only save if it's not empty
     if (command !== "") {
         commandHistory.push(command);
-        historyIndex = commandHistory.length; // Reset index to end
+        historyIndex = commandHistory.length; 
     }
-    
-    // Print what the user typed
-    printToScreen(`<span class="prompt">guest@God'sGift-pc:~$</span> ${command}`);
-    
-    // Run the logic
+    printToScreen(`<span class="prompt">guest@God'sGift-pc:~$</span> ${command}`);//im still wondering if guest or visitor is better ill stick with guest for now
     processCommand(command);
-    
-    // Clear inputs
     input.value = "";
     typeDisplay.textContent = "";
     window.scrollTo(0, document.body.scrollHeight);
 }
 
 function handleArrowUp() {
-    // Only go back if we are not at the start
     if (historyIndex > 0) {
-        historyIndex = historyIndex - 1; // Go back one
+        historyIndex = historyIndex - 1; 
         input.value = commandHistory[historyIndex];
         typeDisplay.textContent = input.value;
     }
 }
 
 function handleArrowDown() {
-    // Only go forward if we are not at the end
     if (historyIndex < commandHistory.length - 1) {
-        historyIndex = historyIndex + 1; // Go forward one
+        historyIndex = historyIndex + 1; 
         input.value = commandHistory[historyIndex];
         typeDisplay.textContent = input.value;
     } else {
-        // If we are at the end, clear the line
         historyIndex = commandHistory.length;
         input.value = "";
         typeDisplay.textContent = "";
     }
 }
 
-// --- 6. EVENT LISTENERS (Waiting for user actions) ---
+// Event listeners 
 
-// Listen for key presses
 input.addEventListener("keydown", function(e) {
     if (e.key === "Enter") {
         handleEnter();
     } 
     else if (e.key === "ArrowUp") {
-        e.preventDefault(); // Stop cursor from moving to start
+        e.preventDefault(); 
         handleArrowUp();
     } 
     else if (e.key === "ArrowDown") {
@@ -303,24 +295,17 @@ input.addEventListener("keydown", function(e) {
     }
 });
 
-// Sync the hidden input with the visible text
 input.addEventListener("input", function() {
     typeDisplay.textContent = input.value;
     window.scrollTo(0, document.body.scrollHeight);
 });
 
-// Handle clicks on the background (Focus input unless clicking a link)
 document.addEventListener('click', function(e) {
-    // 1. Check if clicked on a Command Link
     if (e.target.closest('.cmd-link')) {
-        return; // Do nothing
+        return; 
     }
-
-    // 2. Check if clicked on a Button
     if (e.target.tagName === 'BUTTON') {
-        return; // Do nothing
+        return; 
     }
-
-    // 3. Otherwise, focus the input
     input.focus();
 });
